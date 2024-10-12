@@ -23,14 +23,14 @@ def buildImage() {
 }
 
 def deployAppOnEC2() {
-   // def shellCmd="bash ./shell-cmd.sh ${IMAGE_NAME}"
-    // def ec2_instance = ${EC2_PUBLIC_IP}
-    def dockercmd = "docker run -p 8080:8080 -d ${IMAGE_NAME}"
+   def shellCmd="bash ./shell-cmd.sh ${IMAGE_NAME}"
+    def ec2_instance = ${EC2_PUBLIC_IP}
+    // def dockercmd = "docker run -p 8080:8080 -d ${IMAGE_NAME}"
     sshagent(['appServerCredential']) {
-   // sh "scp -o StrictHostKeyChecking=no shell-cmd.sh ${ec2_instance}:/home/ec2-user"
-  //  sh "scp -o StrictHostKeyChecking=no docker-compose.yaml ${ec2_instance}:/home/ec2-user"
- //   sh "ssh -o StrictHostKeyChecking=no ${ec2_instance} ${shellCmd}"
-        sh "ssh -o StrictHostKeyChecking=no ec2-user@${EC2_PUBLIC_IP} ${dockercmd}"
+        sh "scp -o StrictHostKeyChecking=no shell-cmd.sh ${ec2_instance}:/home/ec2-user"
+        sh "scp -o StrictHostKeyChecking=no docker-compose.yaml ${ec2_instance}:/home/ec2-user"
+        sh "ssh -o StrictHostKeyChecking=no ${ec2_instance} ${shellCmd}"
+        // sh "ssh -o StrictHostKeyChecking=no ec2-user@${EC2_PUBLIC_IP} ${dockercmd}"
     }
 }
 
