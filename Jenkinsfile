@@ -9,7 +9,7 @@ pipeline {
     }
     environment {
         IMAGE_NAME = "oso007/maven-app:1.1"
-        EC2_PUBLIC_IP = "ec2-44-200-3-2.compute-1.amazonaws.com"
+        EC2_PUBLIC_IP = "ec2-3-218-141-63.compute-1.amazonaws.com"
     }
     stages {
         stage("init") {
