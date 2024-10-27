@@ -8,7 +8,7 @@ pipeline {
         maven 'Maven'
     }
     environment {
-        IMAGE_NAME = "oso007/maven-app:1.1"
+        IMAGE_NAME = "oso007/maven-app:${IMAGE_VERSION}"
         EC2_PUBLIC_IP = "ec2-3-218-141-63.compute-1.amazonaws.com"
     }
     stages {
@@ -16,6 +16,14 @@ pipeline {
             steps {
                 script {
                     gv = load "script.groovy"
+                }
+            }
+        }
+
+        stage("increament version") {
+            steps {
+                script {
+                    gv.incrementVersion()
                 }
             }
         }
