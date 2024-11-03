@@ -8,14 +8,22 @@ pipeline {
         maven 'Maven'
     }
     environment {
-        IMAGE_NAME = "oso007/maven-app:1.1"
-        EC2_PUBLIC_IP = "ec2-3-218-141-63.compute-1.amazonaws.com"
+        IMAGE_NAME = "oso007/maven-app:${IMAGE_VERSION}"
+        EC2_PUBLIC_IP = "ec2-18-208-195-194.compute-1.amazonaws.com"
     }
     stages {
         stage("init") {
             steps {
                 script {
                     gv = load "script.groovy"
+                }
+            }
+        }
+
+        stage("increament version") {
+            steps {
+                script {
+                    gv.incrementVersion()
                 }
             }
         }
@@ -39,6 +47,14 @@ pipeline {
             steps {
                 script {
                   gv.deployAppOnEC2()
+                }
+            }
+        }
+
+        stage('commit version') {
+            steps {
+                script {
+                  gv.commitVersion()
                 }
             }
         }
